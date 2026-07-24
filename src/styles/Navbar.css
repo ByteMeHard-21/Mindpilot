@@ -1,0 +1,203 @@
+/* Color Variables (same as Home.css) */
+:root {
+  --moonlight: #E1E2E1;
+  --midnight-sky: #34495E;
+  --deep-ocean: #1B3B6F;
+  --noir: #0D1B2A;
+}
+
+/* Bottom Navigation Container */
+.navbar-container {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+
+}
+
+/* Navigation Content */
+.navbar-content {
+  background: rgba(13, 27, 42, 0.4); /* NOIR with opacity */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  border: 1px solid rgba(225, 226, 225, 0.1); /* MOONLIGHT with opacity */
+  box-shadow: 0 8px 32px rgba(13, 27, 42, 0.3);
+}
+
+/* Navigation Items Container */
+.nav-items {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Individual Navigation Item */
+.nav-item {
+  position: relative;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: rgba(225, 226, 225, 0.6); /* MOONLIGHT with opacity */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item:hover {
+  color: var(--moonlight);
+  background: rgba(225, 226, 225, 0.1); /* MOONLIGHT with opacity */
+  transform: translateY(-2px);
+}
+
+/* Active Navigation Item */
+.nav-item-active {
+  background: linear-gradient(90deg, var(--deep-ocean), var(--midnight-sky));
+  color: var(--moonlight);
+  box-shadow: 0 4px 20px rgba(27, 59, 111, 0.4); /* DEEP OCEAN with opacity */
+}
+
+.nav-item-active:hover {
+  background: linear-gradient(90deg, var(--deep-ocean), var(--midnight-sky));
+  transform: translateY(-2px);
+}
+
+/* Navigation Icon */
+.nav-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Navigation Tooltip */
+.nav-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(13, 27, 42, 0.9); /* NOIR with opacity */
+  color: var(--moonlight);
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+  border: 1px solid rgba(52, 73, 94, 0.3); /* MIDNIGHT SKY with opacity */
+}
+
+.nav-item:hover .nav-tooltip {
+  opacity: 1;
+}
+
+/* Active Indicator */
+.nav-active-indicator {
+  position: absolute;
+  bottom: -0.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--moonlight);
+  border-radius: 50%;
+  animation: pulse-indicator 2s ease-in-out infinite;
+}
+
+/* Globe Button Container */
+.globe-button-container {
+  position: absolute;
+  right: -4rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Globe Button */
+.globe-button {
+  padding: 0.75rem;
+  background: linear-gradient(90deg, var(--midnight-sky), var(--deep-ocean));
+  border: none;
+  border-radius: 50%;
+  color: var(--moonlight);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(52, 73, 94, 0.4); /* MIDNIGHT SKY with opacity */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.globe-button:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 25px rgba(52, 73, 94, 0.5);
+}
+
+/* Globe Icon */
+.globe-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Animations */
+@keyframes pulse-indicator {
+  0%, 100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateX(-50%) scale(1.2);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar-container {
+    bottom: 1rem;
+  }
+  
+  .nav-item {
+    padding: 0.875rem;
+  }
+  
+  .nav-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  
+  .globe-button-container {
+    right: -3.5rem;
+  }
+  
+  .globe-button {
+    padding: 0.625rem;
+  }
+  
+  .globe-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-content {
+    padding: 0.375rem;
+  }
+  
+  .nav-items {
+    gap: 0.25rem;
+  }
+  
+  .nav-item {
+    padding: 0.75rem;
+  }
+  
+  .globe-button-container {
+    right: -3rem;
+  }
+}

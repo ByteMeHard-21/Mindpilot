@@ -1,0 +1,616 @@
+/* MODERN PREMIUM CHAT INTERFACE */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    color: #1e293b;
+}
+
+/* ANIMATED GRADIENT BACKGROUND */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(240, 147, 251, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(118, 75, 162, 0.2) 0%, transparent 50%);
+    animation: gradientShift 15s ease infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes gradientShift {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+}
+
+/* FLOATING PARTICLES */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(2px 2px at 100px 150px, rgba(255, 255, 255, 0.3), transparent),
+        radial-gradient(2px 2px at 300px 50px, rgba(255, 255, 255, 0.2), transparent),
+        radial-gradient(1px 1px at 200px 250px, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(2px 2px at 400px 100px, rgba(255, 255, 255, 0.25), transparent);
+    background-repeat: repeat;
+    background-size: 500px 500px;
+    animation: particleFloat 80s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(0px) translateX(0px);
+    }
+
+    100% {
+        transform: translateY(-1000px) translateX(100px);
+    }
+}
+
+/* MAIN CONTAINER */
+.quantum-nexus-container {
+    max-width: 500px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 32px;
+    backdrop-filter: blur(40px);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    box-shadow:
+        0 40px 100px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.2),
+        inset 0 2px 0 rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    height: 750px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+.quantum-nexus-container:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow:
+        0 50px 120px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.2),
+        inset 0 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* PREMIUM TOP GRADIENT BAR */
+.quantum-nexus-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #667eea);
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+    z-index: 10;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+/* ROOM TITLE HEADER */
+.cosmic-room-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    padding: 40px 28px 28px;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 10px rgba(102, 126, 234, 0.2);
+}
+
+.cosmic-room-title::after {
+    content: '';
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #667eea, transparent);
+    border-radius: 2px;
+}
+
+/* MESSAGE DISPLAY AREA */
+.holographic-message-display {
+    flex: 1;
+    padding: 24px 28px;
+    overflow-y: auto;
+    background: transparent;
+    position: relative;
+    z-index: 2;
+}
+
+/* CUSTOM SCROLLBAR */
+.holographic-message-display::-webkit-scrollbar {
+    width: 8px;
+}
+
+.holographic-message-display::-webkit-scrollbar-track {
+    background: rgba(226, 232, 240, 0.3);
+    border-radius: 10px;
+    margin: 8px 0;
+}
+
+.holographic-message-display::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #667eea, #764ba2);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.holographic-message-display::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #764ba2, #667eea);
+}
+
+/* MESSAGE WRAPPER */
+.neural-message-wrapper {
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    animation: messageSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+@keyframes messageSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* SYSTEM MESSAGES */
+.neural-message-wrapper.system-message {
+    align-items: center;
+}
+
+.neural-message-wrapper.system-message .message-content-orb {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    color: #667eea;
+    padding: 12px 24px;
+    border-radius: 24px;
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    max-width: 70%;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+.neural-message-wrapper.system-message .username-quantum-tag {
+    display: none;
+}
+
+/* USER MESSAGES - RIGHT SIDE */
+.neural-message-wrapper.user-message-alignment {
+    align-items: flex-end;
+}
+
+.neural-message-wrapper.user-message-alignment .message-content-orb {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 18px 24px;
+    border-radius: 24px 24px 6px 24px;
+    max-width: 75%;
+    word-wrap: break-word;
+    margin-top: 4px;
+    position: relative;
+    box-shadow:
+        0 8px 24px rgba(102, 126, 234, 0.4),
+        0 2px 8px rgba(0, 0, 0, 0.1);
+    font-weight: 400;
+    line-height: 1.6;
+    transform: translateZ(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* OTHER USERS' MESSAGES - LEFT SIDE */
+.neural-message-wrapper.other-message-alignment {
+    align-items: flex-start;
+}
+
+.neural-message-wrapper.other-message-alignment .message-content-orb {
+    background: #ffffff;
+    color: #1e293b;
+    padding: 18px 24px;
+    border-radius: 24px 24px 24px 6px;
+    max-width: 75%;
+    word-wrap: break-word;
+    margin-top: 4px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    position: relative;
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.08),
+        0 1px 4px rgba(0, 0, 0, 0.04);
+    font-weight: 400;
+    line-height: 1.6;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* USERNAME TAGS */
+.username-quantum-tag {
+    font-size: 12px;
+    font-weight: 600;
+    color: #667eea;
+    margin-bottom: 6px;
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.neural-message-wrapper.user-message-alignment .username-quantum-tag {
+    text-align: right;
+    color: #667eea;
+}
+
+.neural-message-wrapper.other-message-alignment .username-quantum-tag {
+    text-align: left;
+    color: #764ba2;
+}
+
+/* ENHANCED HOVER EFFECTS */
+.message-content-orb {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neural-message-wrapper.user-message-alignment .message-content-orb:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow:
+        0 12px 32px rgba(102, 126, 234, 0.5),
+        0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.neural-message-wrapper.other-message-alignment .message-content-orb:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.12),
+        0 2px 8px rgba(0, 0, 0, 0.06);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+/* MESSAGE TEXT */
+.message-text {
+    position: relative;
+    z-index: 1;
+}
+
+/* TIMESTAMP STYLING */
+.message-timestamp {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: right;
+    margin-top: 6px;
+    font-weight: 500;
+}
+
+.neural-message-wrapper.other-message-alignment .message-timestamp {
+    color: #94a3b8;
+}
+
+.system-message .message-timestamp {
+    text-align: center;
+    margin-top: 4px;
+    color: #667eea;
+}
+
+/* INPUT ZONE */
+.futuristic-input-zone {
+    padding: 28px;
+    background: rgba(255, 255, 255, 0.95);
+    border-top: 1px solid rgba(226, 232, 240, 0.5);
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    backdrop-filter: blur(20px);
+}
+
+/* MESSAGE INPUT */
+.plasma-message-input {
+    flex: 1;
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 24px;
+    padding: 18px 24px;
+    color: #1e293b;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.04),
+        inset 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.plasma-message-input::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+.plasma-message-input:focus {
+    border-color: #667eea;
+    box-shadow:
+        0 0 0 4px rgba(102, 126, 234, 0.15),
+        0 8px 24px rgba(102, 126, 234, 0.2);
+    transform: translateY(-2px);
+}
+
+/* SEND BUTTON */
+.quantum-send-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 20px;
+    padding: 18px 32px;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: 'Space Grotesk', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    box-shadow:
+        0 8px 24px rgba(102, 126, 234, 0.4),
+        0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.quantum-send-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.quantum-send-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow:
+        0 12px 32px rgba(102, 126, 234, 0.5),
+        0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.quantum-send-button:hover::before {
+    left: 100%;
+}
+
+.quantum-send-button:active {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow:
+        0 6px 20px rgba(102, 126, 234, 0.4),
+        0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 600px) {
+    .quantum-nexus-container {
+        margin: 20px;
+        max-width: calc(100% - 40px);
+        height: calc(100vh - 40px);
+        border-radius: 28px;
+    }
+
+    .cosmic-room-title {
+        font-size: 20px;
+        padding: 32px 24px 24px;
+    }
+
+    .holographic-message-display {
+        padding: 20px 24px;
+    }
+
+    .neural-message-wrapper .message-content-orb {
+        max-width: 85%;
+        padding: 16px 20px;
+    }
+
+    .futuristic-input-zone {
+        padding: 24px;
+        gap: 12px;
+    }
+
+    .plasma-message-input {
+        padding: 16px 20px;
+        font-size: 16px;
+        border-radius: 20px;
+    }
+
+    .quantum-send-button {
+        padding: 16px 24px;
+        font-size: 13px;
+        border-radius: 18px;
+    }
+}
+
+/* TABLET OPTIMIZATION */
+@media (min-width: 601px) and (max-width: 1023px) {
+    .quantum-nexus-container {
+        max-width: 540px;
+    }
+}
+
+/* DESKTOP OPTIMIZATION */
+@media (min-width: 1400px) {
+    .quantum-nexus-container {
+        max-width: 560px;
+        height: 800px;
+    }
+
+    .cosmic-room-title {
+        font-size: 26px;
+        padding: 44px 32px 32px;
+    }
+
+    .holographic-message-display {
+        padding: 28px 32px;
+    }
+
+    .plasma-message-input {
+        font-size: 16px;
+        padding: 20px 26px;
+    }
+
+    .quantum-send-button {
+        font-size: 15px;
+        padding: 20px 36px;
+    }
+}
+
+/* ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* DARK MODE SUPPORT */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    }
+
+    .quantum-nexus-container {
+        background: rgba(26, 26, 46, 0.95);
+        border: 2px solid rgba(102, 126, 234, 0.3);
+    }
+
+    .cosmic-room-title {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .neural-message-wrapper.system-message .message-content-orb {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+        color: #a5b4fc;
+        border: 1px solid rgba(102, 126, 234, 0.4);
+    }
+
+    .neural-message-wrapper.other-message-alignment .message-content-orb {
+        background: rgba(30, 41, 59, 0.8);
+        color: #e2e8f0;
+        border: 1px solid rgba(102, 126, 234, 0.2);
+    }
+
+    .plasma-message-input {
+        background: rgba(30, 41, 59, 0.6);
+        border: 2px solid rgba(102, 126, 234, 0.3);
+        color: #e2e8f0;
+    }
+
+    .plasma-message-input::placeholder {
+        color: #64748b;
+    }
+
+    .plasma-message-input:focus {
+        background: rgba(30, 41, 59, 0.8);
+        border-color: #667eea;
+    }
+
+    .futuristic-input-zone {
+        background: rgba(26, 26, 46, 0.9);
+        border-top: 1px solid rgba(102, 126, 234, 0.2);
+    }
+}
+
+/* HIGH CONTRAST MODE */
+@media (prefers-contrast: high) {
+    .quantum-nexus-container {
+        border: 3px solid;
+    }
+
+    .plasma-message-input {
+        border: 3px solid;
+    }
+
+    .quantum-send-button {
+        border: 2px solid transparent;
+    }
+}
+
+/* FOCUS VISIBLE */
+.quantum-send-button:focus-visible,
+.plasma-message-input:focus-visible {
+    outline: 3px solid #667eea;
+    outline-offset: 3px;
+}
+
+/* LOADING STATE (Optional enhancement) */
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.neural-message-wrapper.loading .message-content-orb {
+    animation: pulse 1.5s ease-in-out infinite;
+}

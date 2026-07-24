@@ -1,0 +1,404 @@
+/* Quantum Nexus Interface - Futuristic PDF Chat */
+:root {
+  --quantum-silver: #E1E2E1;
+  --deep-space: #0D1B2A;
+  --stellar-blue: #1B3B6F;
+  --nebula-dark: #34495E;
+  --quantum-glow: rgba(27, 59, 111, 0.7);
+  --error-pulse: rgba(220, 38, 38, 0.7);
+}
+
+.quantum-nexus-container {
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+  background-color: var(--deep-space);
+  color: var(--quantum-silver);
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+  padding: 0 1rem;
+  transition: max-width 0.45s ease;
+  overflow-x: hidden;
+}
+
+.quantum-nexus-container.compact {
+  max-width: 520px;
+}
+
+.quantum-nexus-container.expanded {
+  max-width: 1200px;
+}
+
+.quantum-nexus-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 30%, var(--quantum-glow) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, var(--quantum-glow) 0%, transparent 40%);
+  z-index: 0;
+  opacity: 0.3;
+}
+
+.quantum-nexus-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(225, 226, 225, 0.1);
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(5px);
+}
+
+.quantum-nexus-logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, var(--quantum-silver) 0%, #A0AEC0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(225, 226, 225, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantum-nexus-main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+/* Keep scrolling but hide scrollbar */
+.quantum-message-matrix {
+  overflow-y: auto;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer/Edge */
+}
+
+/* Chrome, Safari, Opera */
+.quantum-message-matrix::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.quantum-message-node {
+  display: flex;
+}
+
+.quantum-ai-node {
+  align-self: flex-start;
+  max-width: 75%;
+}
+
+.quantum-user-node {
+  align-self: flex-end;
+  max-width: 75%;
+}
+
+.quantum-message-core {
+  padding: 1.2rem 1.5rem;
+  border-radius: 1.25rem;
+  line-height: 1.6;
+  font-size: 1rem;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quantum-ai-node .quantum-message-core {
+  background-color: var(--nebula-dark);
+  border-top-left-radius: 0;
+  color: var(--quantum-silver);
+  border-left: 2px solid var(--stellar-blue);
+}
+
+.quantum-user-node .quantum-message-core {
+  background-color: var(--stellar-blue);
+  border-bottom-right-radius: 0;
+  color: white;
+  border-right: 2px solid var(--quantum-silver);
+}
+
+.quantum-system-node .quantum-message-core {
+  background-color: rgba(52, 73, 94, 0.5);
+  border: 1px dashed var(--quantum-silver);
+}
+
+.quantum-error-node .quantum-message-core {
+  background-color: rgba(220, 38, 38, 0.2);
+  border: 1px solid rgba(220, 38, 38, 0.5);
+  animation: quantumPulse 2s infinite;
+}
+
+.quantum-message-core:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.quantum-input-matrix {
+  display: flex;
+  position: relative;
+  margin-top: auto;
+  background: rgba(13, 27, 42, 0.8);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  border: 1px solid rgba(225, 226, 225, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.quantum-input-field {
+  flex-grow: 1;
+  padding: 1rem 4.5rem 1rem 1.5rem;
+  border-radius: 0.75rem;
+  border: none;
+  background-color: transparent;
+  color: var(--quantum-silver);
+  font-size: 1rem;
+  outline: none;
+  resize: none;
+  min-height: 60px;
+  max-height: 150px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.quantum-input-field:focus {
+  box-shadow: 0 0 0 2px var(--stellar-blue);
+}
+
+.quantum-attach-trigger {
+  position: absolute;
+  right: 4rem;
+  bottom: 1.25rem;
+  background: none;
+  border: none;
+  color: var(--quantum-silver);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.quantum-attach-trigger:hover {
+  color: var(--stellar-blue);
+  transform: scale(1.1);
+}
+
+.quantum-send-pulse {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  background: var(--stellar-blue);
+  border: none;
+  border-radius: 50%;
+  width: 2.8rem;
+  height: 2.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.quantum-send-pulse:hover {
+  background: var(--nebula-dark);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(27, 59, 111, 0.5);
+}
+
+.quantum-send-pulse:disabled {
+  background: var(--nebula-dark);
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.quantum-file-input {
+  display: none;
+}
+
+.quantum-message-timestamp {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 0.5rem;
+  text-align: right;
+}
+
+.quantum-avatar-core {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+  align-self: flex-end;
+}
+
+.quantum-ai-avatar {
+  background-color: var(--nebula-dark);
+  border: 1px solid var(--stellar-blue);
+}
+
+.quantum-user-avatar {
+  background-color: var(--stellar-blue);
+  border: 1px solid var(--quantum-silver);
+}
+
+.quantum-system-avatar {
+  background-color: rgba(52, 73, 94, 0.5);
+  border: 1px dashed var(--quantum-silver);
+}
+
+.quantum-error-avatar {
+  background-color: rgba(220, 38, 38, 0.2);
+  border: 1px solid rgba(220, 38, 38, 0.5);
+}
+
+/* Animation Effects */
+@keyframes quantumFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes quantumPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+  }
+}
+
+.quantum-message-node {
+  animation: quantumFadeIn 0.4s ease-out forwards;
+}
+
+/* Loading Indicator */
+.quantum-loading-sequence {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.quantum-loading-sequence span {
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background-color: var(--quantum-silver);
+  animation: quantumBounce 1.4s infinite ease-in-out both;
+}
+
+.quantum-loading-sequence span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.quantum-loading-sequence span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes quantumBounce {
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* File Upload Indicator */
+.quantum-file-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(27, 59, 111, 0.2);
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px dashed var(--stellar-blue);
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.quantum-file-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.9rem;
+}
+
+/* Clear Chat Button */
+.quantum-clear-signal {
+  background: transparent;
+  border: 1px solid rgba(225, 226, 225, 0.3);
+  color: var(--quantum-silver);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+  margin-left: auto;
+}
+
+.quantum-clear-signal:hover {
+  background: rgba(220, 38, 38, 0.2);
+  border-color: rgba(220, 38, 38, 0.5);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .quantum-nexus-main {
+    padding: 1rem;
+  }
+
+  .quantum-message-core {
+    max-width: 90%;
+  }
+
+  .quantum-input-matrix {
+    padding: 0.25rem;
+  }
+
+  .quantum-input-field {
+    padding-right: 3.5rem;
+  }
+
+  .quantum-attach-trigger {
+    right: 3rem;
+  }
+}

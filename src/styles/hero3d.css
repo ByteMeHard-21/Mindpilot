@@ -1,0 +1,45 @@
+.feature-hologram {
+
+    background: rgba(8, 18, 45, 0.18);
+
+    backdrop-filter: blur(20px);
+
+    -webkit-backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(120, 232, 255, .35);
+
+}
+
+.feature-hologram:hover {
+
+    transform: scale(1.08);
+
+    box-shadow:
+
+        0 0 50px rgba(84, 220, 255, .55);
+
+}
+
+.feature-hologram .icon {
+
+    font-size: 26px;
+
+    margin-bottom: 6px;
+
+}
+
+.feature-hologram .title {
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    letter-spacing: .4px;
+
+}
+
+.hero3d-container {
+
+    background: transparent;
+
+}
