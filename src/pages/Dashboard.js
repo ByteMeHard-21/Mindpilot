@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import Navbar from './Navbar';
 import '../styles/Dashboard.css';
@@ -6,7 +6,7 @@ import logo from '../images/logo.png';
 import HomePage from './HomePage';
 import ContactUs from './ContactUs';
 import Footer from './Footer';
-import { BookOpen, Users, Video, Award, Brain, Globe, MessageSquare, NotebookPen, FileText, Database, LayoutDashboard, House, Bookmark, Calendar, ListCheck, ScanText, BookOpenCheck } from 'lucide-react';
+import { Users, MessageSquare, ListCheck, ScanText, BookOpenCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -15,7 +15,6 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 const Home = () => {
   const mountRef = useRef(null);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   const features = [
     {
@@ -28,7 +27,7 @@ const Home = () => {
       icon: <BookOpenCheck className="feature-icon" />,
       title: "MindQuestions",
       description: "Generate customized theory questions from your study material. Choose difficulty, number of questions, and marks",
-      path: "/pages/QAgenerator"
+      path: "/pages/QAGenerator"
     },
 
     {
@@ -58,6 +57,7 @@ const Home = () => {
   ];
 
   useEffect(() => {
+    const currentMount = mountRef.current;
     // Three.js scene setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, 400 / 400, 0.1, 1000);
@@ -157,7 +157,6 @@ const Home = () => {
     };
 
     animate();
-    setIsLoaded(true);
     // Remove duplicate canvases - keep the top one
     // Remove duplicate canvases - keep the one with higher z-index or specific position
     setTimeout(() => {
@@ -186,8 +185,8 @@ const Home = () => {
       }
 
       // Remove only OUR canvas from mountRef
-      if (mountRef.current && renderer.domElement && mountRef.current.contains(renderer.domElement)) {
-        mountRef.current.removeChild(renderer.domElement);
+      if (currentMount && renderer.domElement && currentMount.contains(renderer.domElement)) {
+        currentMount.removeChild(renderer.domElement);
       }
 
       // Remove any duplicate canvases - keep the top one, remove bottom one

@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Upload, Send, FileText, AlertCircle, Loader2 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import '../styles/ChatWithPDF.css';
 import Footer from './Footer';
 import Navbar from './Navbar';
@@ -232,27 +234,20 @@ const QuantumNexusInterface = () => {
         quantumFileInputRef.current.click();
     };
 
-    const renderMessage = (text) => {
-        return text.split("\n").map((line, index) => {
+    const renderMessage = (text, type) => {
+        if (!text) return null;
 
-            if (line.startsWith("## ")) {
-                return <h2 key={index}>{line.replace("## ", "")}</h2>;
-            }
+        if (type === 'user') {
+            return <p style={{ whiteSpace: 'pre-wrap', margin: 0 }}>{text}</p>;
+        }
 
-            if (line.startsWith("### ")) {
-                return <h3 key={index}>{line.replace("### ", "")}</h3>;
-            }
-
-            if (line.startsWith("- ") || line.startsWith("• ")) {
-                return (
-                    <ul key={index}>
-                        <li>{line.substring(2)}</li>
-                    </ul>
-                );
-            }
-
-            return <p key={index}>{line}</p>;
-        });
+        return (
+            <div className="quantum-markdown-body">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {text}
+                </ReactMarkdown>
+            </div>
+        );
     };
 
     return (
@@ -354,7 +349,7 @@ const QuantumNexusInterface = () => {
                                         )}
                                     </div>
                                     <div className="quantum-message-core">
-                                        {renderMessage(message.content)}
+                                        {renderMessage(message.content, message.type)}
                                         <div className="quantum-message-timestamp">
                                             {message.type === 'user' ? 'You' :
                                                 message.type === 'system' ? 'System' :

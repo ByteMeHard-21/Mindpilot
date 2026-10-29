@@ -5,7 +5,7 @@ const pdfParse = require('pdf-parse');
 const mammoth = require('mammoth');
 const fs = require('fs');
 const path = require('path');
-require('dotenv').config();
+require('dotenv').config({ path: require('path').join(__dirname, '.env') });
 const { CohereClient } = require('cohere-ai');
 const http = require('http');
 const mongoose = require('mongoose');
@@ -46,10 +46,8 @@ const io = socketIo(server, {
 });
 
 // MongoDB Connect
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log('✅ MongoDB connected'))
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => console.log('✅ MongoDB connected'))
     .catch((err) => console.error('❌ MongoDB error:', err));
 
 // Multer Uploads

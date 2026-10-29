@@ -1,11 +1,9 @@
-const axios = require("axios");
+﻿const fetch = require("node-fetch");
 
 function extractJSONArray(text) {
     const start = text.indexOf("[");
     const end = text.lastIndexOf("]");
-    if (start === -1 || end === -1) {
-        throw new Error("No JSON array found");
-    }
+    if (start === -1 || end === -1) throw new Error("No JSON array found");
     return text.slice(start, end + 1);
 }
 
@@ -44,55 +42,45 @@ Text:
 ${content}
 `;
 
-        const hfResponse = await axios.post(
-            "https://router.huggingface.co/v1/chat/completions",
-            {
-                model: "deepseek-ai/DeepSeek-V4-Flash",
+        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${process.env.GROQ_API_KEY_2}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                model: "qwen/qwen3.8-27b",
                 messages: [
-                    {
-                        role: "system",
-                        content: "You are a quiz generator. Never reveal your reasoning. Output ONLY the final JSON array."
-                    },
-                    {
-                        role: "user",
-                        content: prompt
-                    }
+                    { role: "system", content: "You are a quiz generator. Output ONLY the final JSON array with no extra text or markdown." },
+                    { role: "user", content: prompt }
                 ],
                 temperature: 0.3,
-                max_tokens: 1500,
-                extra_body: {
-                    chat_template_kwargs: {
-                        enable_thinking: false
-                    }
-                }
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${process.env.HF_API_KEY}`,
-                    "Content-Type": "application/json"
-                }
-            }
-        );
+                max_tokens: 1500
+            })
+        });
 
+        const data = await response.json();
 
-        const message = hfResponse.data?.choices?.[0]?.message;
+        console.log("========== GROQ QUIZ RESPONSE ==========");
+        console.dir(data, { depth: null });
 
-        const rawText = message?.content;
-
-        if (!rawText) {
-            console.error("Model response:", message);
-            return res.status(500).json({
-                error: "Model returned no content.",
-                details: message
+        if (!response.ok) {
+            return res.status(response.status).json({
+                error: data.error?.message || "Groq API request failed."
             });
         }
 
-        const quiz = JSON.parse(extractJSONArray(rawText));
+        const rawText = data.choices?.[0]?.message?.content;
 
+        if (!rawText) {
+            return res.status(500).json({ error: "Model returned no content." });
+        }
+
+        const quiz = JSON.parse(extractJSONArray(rawText));
         res.json({ quiz });
 
     } catch (err) {
-        console.error("HF quiz error:", err?.response?.data || err.message);
+        console.error("Quiz generation error:", err?.message || err);
         res.status(500).json({ error: "Quiz generation failed" });
     }
 };
